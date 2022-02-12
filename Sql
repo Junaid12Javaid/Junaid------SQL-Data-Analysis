@@ -1,0 +1,160 @@
+/* DATA ANALYSIS USING SQL PRACTICE QUERIES*/
+
+/* 1) Get All Employees */
+CREATE PROCEDURE spGetEmployees
+As
+BEGIN
+Select JobTitle
+From HumanResources.Employee
+END
+
+/* Aggregate Functions*/
+/* 2) Calculate Sum or Order Details colomn*/
+CREATE PROCEDURE spSumUnitPriceSalesOrderDetails
+As
+BEGIN
+Select SUM(UnitPrice) as sum_all
+From Sales.SalesOrderDetail
+END
+
+/* 3) Calculate Average or Order Details colomn*/
+CREATE PROCEDURE spAvGUnitPriceSalesOrderDetails
+As
+BEGIN
+Select Avg(UnitPrice) as Average
+From Sales.SalesOrderDetail
+END
+
+/* 4) Calculate Standard Deviation for Order Details colomn*/
+CREATE PROCEDURE spStandardDeviationUnitPriceSalesOrderDetails
+As
+BEGIN
+Select  stdevp(UnitPrice) as Ave
+From Sales.SalesOrderDetail
+END
+
+/* 5) Calculate Count for Order Details colomn*/
+CREATE PROCEDURE spCountUnitPriceSalesOrderDetails
+As
+BEGIN
+Select  count(UnitPrice) as count
+From Sales.SalesOrderDetail
+END
+
+/* 6) Calculate Minimum for Order Details colomn*/
+CREATE PROCEDURE spMinimumUnitPriceOrderDetails
+As
+BEGIN
+Select  MIN(UnitPrice) as Min
+From Sales.SalesOrderDetail
+END
+
+/* 7) Calculate Maximum for Order Details colomn*/
+CREATE PROCEDURE spMaximumUnitPriceOrderDetails
+As
+BEGIN
+Select  Max(UnitPrice) as Max
+From Sales.SalesOrderDetail
+END
+
+/* 8) Calculate Maximum & Minimum value for Order Details colomn*/
+CREATE PROCEDURE spMinimumMaximumUnitPriceTogetherOrderDetails
+As
+BEGIN
+Select  Max(UnitPrice) As Minimum, Min(UnitPrice) As Maximum
+From Sales.SalesOrderDetail
+END
+
+/* Slicing Data*/
+/* 9 Select Name where country region equals to US */
+CREATE PROCEDURE spGetNameAllWhereTerritoryRegionCodeUS
+As
+BEGIN
+Select Name
+From Sales.SalesTerritory
+WHERE CountryRegionCode = 'US';
+END
+
+/* 10 Select Name where Territories by region code & Sales */
+CREATE PROCEDURE SalesTerritoryNameByRegionCodeAndSales
+As
+BEGIN
+Select Name
+From Sales.SalesTerritory
+WHERE CountryRegionCode = 'US' and SalesYTD > 100000;
+END
+
+/* 11 Select Name where Territories by region code & Sales */
+
+CREATE PROCEDURE SalesTerritoryNameSalesYTD
+As
+BEGIN
+Select Name
+From Sales.SalesTerritory
+WHERE SalesYTD >= 100000  and SalesYTD > 3805202;
+END
+
+
+/* 12 Select Name where Territories by region code & Sales */
+
+CREATE PROCEDURE SalesTerritoryNamesbyRange
+As
+BEGIN
+Select Name
+From Sales.SalesTerritory
+WHERE SalesYTD >= 100000  and SalesYTD > 3805202;
+END
+
+/* Limiting Data */
+
+/* 13 Sales Territory top 5 rows */
+
+CREATE PROCEDURE SalesTerritoryTop5rows
+As
+BEGIN
+Select Top 5 *
+From Sales.SalesTerritory
+END
+
+
+/* Sorting Data */
+/* 14 Last year sales by Sales Terittory */
+
+CREATE PROCEDURE SalesTerritorybysaleslastyear
+As
+BEGIN
+Select *
+From Sales.SalesTerritory
+Order BY SalesLastYear
+END
+
+
+
+/* Filtering Patterns */
+/* 15 Fltering by name */
+CREATE PROCEDURE SalesTaxRate
+As
+BEGIN
+Select *
+From Sales.SalesTaxRate
+Where Name like '%GST';
+END
+
+/* 16 Fltering by name */
+CREATE PROCEDURE SalesTaxRateName
+As
+BEGIN
+Select *
+From Sales.SalesTaxRate
+Where Name like '_a%'
+Order By Name;
+END
+
+/* 17 Fltering by name */
+CREATE PROCEDURE spCountAggregate
+As
+BEGIN
+Select COUNT(*), Name
+From Person.CountryRegion
+Group By Name;
+END
