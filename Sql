@@ -158,3 +158,119 @@ Select COUNT(*), Name
 From Person.CountryRegion
 Group By Name;
 END
+
+/* 18 Replace the column data  */
+CREATE PROCEDURE SpGroupName
+BEGIN
+SELECT JobTitle,
+Replace(JobTitle, 'Buyer', 'Buyers')
+From dbo.AllEmployees
+END
+
+/* 19 Or Query  */
+
+CREATE PROCEDURE SpGroupName
+As
+BEGIN
+Select DepartmentID
+From HumanResources.Department
+Where Name = 'Engineering' OR Name = 'Sales';
+END
+
+/* 20 AND Query  */
+
+CREATE PROCEDURE SpANDQuery
+As
+BEGIN
+Select Top 5 DepartmentID
+From HumanResources.Department
+Where Name = 'Engineering' AND GroupName = 'Research and Development';
+END
+
+/* 21 NOT Query  */
+CREATE PROCEDURE SpNOTQuery
+As
+BEGIN
+Select DepartmentID, GroupName
+From HumanResources.Department
+Where NOT Name = 'Engineering' 
+END
+
+/* 22 AndOrtogther Query  */
+CREATE PROCEDURE SpAnd_OrTogetherQuery
+As
+BEGIN
+Select DepartmentID
+From HumanResources.Department
+Where Name = 'Engineering'  AND (GroupName = 'Research and Development' OR GroupName =  'Manufacturing');
+END
+
+/* 23 AndWithNot Query  */
+CREATE PROCEDURE SpAnd_WithNotQuery
+As
+BEGIN
+Select DepartmentID
+From HumanResources.Department
+Where NOT Name= 'Sales' AND NOT Name = 'Marketing';
+END
+
+/* 24 Upper Function */
+CREATE PROCEDURE SpUpperFunction
+As
+BEGIN
+Select UPPER(JobTitle) as Job
+From HumanResources.Employee
+Order by BusinessEntityID asc;
+END
+
+/* 25 Distinct Function */
+CREATE PROCEDURE SpDictinct
+As
+BEGIN
+Select Distinct JobTitle as Job
+From HumanResources.Employee
+END
+
+/* 26 Sunstring Function */
+CREATE PROCEDURE SpSubstringFunction
+As
+BEGIN
+Select SUBSTRING(JobTitle,1,3) as Job
+From HumanResources.Employee
+END
+
+/* 27 RTRIM Function */
+CREATE PROCEDURE SpRTRIMFunction
+As
+BEGIN
+Select RTRIM(JobTitle)
+From HumanResources.Employee
+END
+
+/* 28 LTRIM Function */
+CREATE PROCEDURE SpLTRIMFunction
+As
+BEGIN
+Select LTRIM(JobTitle)
+From HumanResources.Employee
+END
+
+/* 29 Concat Column */
+CREATE PROCEDURE spConcatcolumn
+As
+BEGIN
+Select CONCAT(JobTitle,' ',NationalIDNumber)
+From HumanResources.Employee
+END
+
+/* 30 length Function */
+CREATE PROCEDURE spCount
+As
+BEGIN
+Select JobTitle, COUNT(*)
+From HumanResources.Employee
+where VacationHours > 10
+Group By JobTitle
+Having COUNT(*) > 2;
+END
+
