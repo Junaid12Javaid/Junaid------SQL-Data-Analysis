@@ -33,16 +33,6 @@ Select  stdevp(UnitPrice) as Ave
 From Sales.SalesOrderDetail
 END
 
-/* 31 Between Keyword */
-CREATE PROCEDURE spBetweeenKeyword
-As
-BEGIN
-Select JobTitle
-From HumanResources.Employee
-where VacationHours between 10 and 100 
-Group By JobTitle;
-END
-
 /* 5) Calculate Count for Order Details colomn*/
 CREATE PROCEDURE spCountUnitPriceSalesOrderDetails
 As
@@ -305,3 +295,33 @@ From HumanResources.Employee
 Group By JobTitle;
 END
 
+/* 33 How many workers for each department  */
+CREATE PROCEDURE spWorkertWithJobTitle
+As
+BEGIN
+Select CONCAT(FirstName, '' ,LastName), E1.JobTitle, StateProvinceName
+From HumanResources.vEmployee E
+INNER JOIN HumanResources.Employee E1
+ON E.BusinessEntityID = E1.BusinessEntityID
+AND E1.JobTitle in ('Chief Executive Officer') OR E1.JobTitle in ('Engineering Manager') OR E1.JobTitle in ('Tool Designer');
+END
+
+/* 34 Between Keyword */
+CREATE PROCEDURE spBetweeenKeyword
+As
+BEGIN
+Select JobTitle
+From HumanResources.Employee
+where VacationHours between 10 and 100 
+Group By JobTitle;
+END
+
+/* 35 Duplicate records In a column */
+CREATE PROCEDURE spColoumnRecordMoreThan1
+As
+BEGIN
+Select JobTitle, COUNT(*)
+From HumanResources.Employee
+Group By JobTitle
+Having COUNT(*) > 1;
+END
