@@ -33,6 +33,16 @@ Select  stdevp(UnitPrice) as Ave
 From Sales.SalesOrderDetail
 END
 
+/* 31 Between Keyword */
+CREATE PROCEDURE spBetweeenKeyword
+As
+BEGIN
+Select JobTitle
+From HumanResources.Employee
+where VacationHours between 10 and 100 
+Group By JobTitle;
+END
+
 /* 5) Calculate Count for Order Details colomn*/
 CREATE PROCEDURE spCountUnitPriceSalesOrderDetails
 As
@@ -272,5 +282,26 @@ From HumanResources.Employee
 where VacationHours > 10
 Group By JobTitle
 Having COUNT(*) > 2;
+END
+
+/* 31 Select Employees from two tables using IN  */
+CREATE PROCEDURE spWorkersVacations
+As
+BEGIN
+Select CONCAT(FirstName, '', LastName) as Worker_Name
+From HumanResources.vEmployee
+where BusinessEntityID IN 
+(Select BusinessEntityID 
+ From HumanResources.Employee
+where VacationHours between 10 and 100);
+END
+
+/* 32 How many workers for each department  */
+CREATE PROCEDURE spWorkersinEachDepartment
+As
+BEGIN
+Select Count(BusinessEntityID) as WorkerId, JobTitle
+From HumanResources.Employee
+Group By JobTitle;
 END
 
