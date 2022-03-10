@@ -345,3 +345,69 @@ Minus
 Select *
 From HumanResources.vEmployee
 END
+
+/* 38 SQL query to fetch the list of employees with the same salary */
+CREATE PROCEDURE spfETCHLISTOFEMPLOYEES
+As
+BEGIN
+Select  E.JobTitle, E.BusinessEntityID
+From HumanResources.Employee E
+Where E.BusinessEntityID != E.BusinessEntityID;
+END
+
+/* 39 SQL query to show the second highest salary from a table */
+CREATE PROCEDURE spsECONDHIGHESTSALARY
+As
+BEGIN
+SELECT MAX(VacationHours)
+FROM HumanResources.Employee
+WHERE VacationHours nOT IN (SELECT MAX(VacationHours)
+FROM HumanResources.Employee);
+END
+
+/* 40 query to show all departments along with the number of people in there */
+CREATE PROCEDURE spDepartmengtsWiththeirPeople
+As
+BEGIN
+Select JobTitle, COUNT(JobTitle)
+From HumanResources.Employee
+Group By JobTitle;
+END
+
+
+/* 41 query to show Data from different Tables */
+CREATE PROCEDURE spShowDataFromdifferentTables
+As
+BEGIN
+Select HumanResources.vEmployee.FirstName,HumanResources.vEmployee.LastName, HumanResources.Employee.JobTitle, HumanResources.Employee.VacationHours
+From HumanResources.Employee
+Left Join HumanResources.vEmployee
+ON HumanResources.Employee.BusinessEntityID = HumanResources.vEmployee.BusinessEntityID
+Order By HumanResources.Employee.BusinessEntityID;
+END
+
+/* 42 query to show Data from different Tables */
+CREATE PROCEDURE spJoinTwoTablesLeftJoin
+As
+BEGIN
+Select  HumanResources.vEmployee.FirstName, HumanResources.vEmployee.LastName,HumanResources.EmployeePayHistory.PayFrequency
+From HumanResources.vEmployee
+Left Join HumanResources.EmployeePayHistory
+ON HumanResources.vEmployee.BusinessEntityID = HumanResources.EmployeePayHistory.BusinessEntityID
+Order By HumanResources.vEmployee.BusinessEntityID;
+END
+
+/* 43 query to Join Three Tables */
+CREATE PROCEDURE spJointhreeTables
+As
+BEGIN
+Select HumanResources.Employee.JobTitle,HumanResources.Department.Name,HumanResources.Shift.StartTime
+From HumanResources.Department
+Left Join HumanResources.EmployeeDepartmentHistory
+On HumanResources.Department.DepartmentID = HumanResources.EmployeeDepartmentHistory.DepartmentID
+Left Join HumanResources.Employee
+On HumanResources.Employee.BusinessEntityID = HumanResources.EmployeeDepartmentHistory.BusinessEntityID
+Left Join HumanResources.Shift
+On HumanResources.Shift.ShiftID = HumanResources.EmployeeDepartmentHistory.ShiftID;
+END
+
