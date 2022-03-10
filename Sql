@@ -325,3 +325,23 @@ From HumanResources.Employee
 Group By JobTitle
 Having COUNT(*) > 1;
 END
+
+/* 36 Duplicate Table */
+CREATE PROCEDURE spDuplicateTable
+As
+BEGIN
+Select * INTO EmployeeClone
+From HumanResources.Employee
+Where 1 = 0;
+END
+
+/* 37 SQL query to show records from one table that another table does not have */
+CREATE PROCEDURE spSameRecordsIndifferentTable
+As
+BEGIN
+Select * 
+From HumanResources.Employee
+Minus
+Select *
+From HumanResources.vEmployee
+END
