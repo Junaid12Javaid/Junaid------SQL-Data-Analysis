@@ -411,3 +411,20 @@ Left Join HumanResources.Shift
 On HumanResources.Shift.ShiftID = HumanResources.EmployeeDepartmentHistory.ShiftID;
 END
 
+/* 44 query to Join Three Tables */
+CREATE PROCEDURE spTwoJoinsCustomerDetails
+As
+BEGIN
+Select Sales.Customer.PersonID, Sales.Customer.AccountNumber, Sales.Customer.CustomerID, Sales.Customer.TerritoryID, Sales.Customer.StoreID,
+       Sales.SalesOrderHeader.CreditCardID, Sales.SalesOrderHeader.OrderDate, Sales.SalesOrderHeader.SalesOrderID, Sales.SalesOrderHeader.PurchaseOrderNumber,
+	   Sales.SalesOrderHeader.SalesOrderNumber, Sales.SalesOrderHeader.SalesPersonID, Sales.SalesOrderHeader.PurchaseOrderNumber,
+	   Sales.SalesOrderHeader.ShipDate, Sales.SalesOrderHeader.ShipMethodID, Sales.SalesOrderHeader.TotalDue, Sales.SalesOrderHeader.TaxAmt, 
+	   Sales.SalesOrderHeader.Status, Sales.SalesOrderDetail.ProductID, Sales.SalesOrderDetail.SpecialOfferID, sales.SalesOrderDetail.OrderQty
+	   
+From Sales.Customer
+Join  Sales.SalesOrderHeader
+On    Sales.Customer.CustomerID = Sales.SalesOrderHeader.CustomerID
+Join  Sales.SalesOrderDetail
+On    Sales.SalesOrderDetail.SalesOrderID = Sales.SalesOrderHeader.SalesOrderID
+END
+
